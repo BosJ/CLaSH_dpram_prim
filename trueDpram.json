@@ -1,0 +1,55 @@
+[ { "BlackBox" :
+    { "name"      : "Dpram.trueDpram"
+    , "comment"   :
+    "trueDpram :: (Num a, KnownNat n, KnownNat m) -- (ARG[0],ARG[1],ARG[2])
+               => Vec n a                         -- init,   ARG[3]
+               -> Signal a			  	          -- data_a, ARG[4]
+			   -> Signal a			              -- data_b, ARG[5]
+               -> Signal (Unsigned m)             -- addr_a, ARG[6]
+               -> Signal (Unsigned m)             -- addr_b, ARG[7]
+               -> Signal Bool                     -- we_a,   ARG[8]
+               -> Signal Bool                     -- we_b,   ARG[9]
+               -> (Signal a, Signal a)"
+    , "templateD" :
+"~SYM[0]_block : block
+
+  -- Build a 2-D array type for the RAM
+  type memory_t is array(~LIT[1]-1 downto 0) of ~TYP[4];
+
+  -- Declare the RAM
+  shared variable ram : memory_t;
+
+  -- Seperate outputs
+  signal ~SYM[1] : ~TYP[4];
+  signal ~SYM[2] : ~TYP[4];
+begin
+
+	-- Port A
+	process(~CLKO)
+	begin
+		if(rising_edge(~CLKO)) then 
+			if(~ARG[8]) then
+				ram(to_integer(~ARG[6])) := ~ARG[4];
+			end if;
+			~SYM[1] <= ram(to_integer(~ARG[6]));
+		end if;
+	end process;
+	
+	-- Port B
+	process(~CLKO)
+	begin
+		if(rising_edge(~CLKO)) then
+			if(~ARG[9]) then
+				ram(to_integer(~ARG[7])) := ~ARG[5];
+			end if;
+			~SYM[2] <= ram(to_integer(~ARG[7]));
+		end if;
+	end process;
+    
+    -- Collect reads
+    ~RESULT <= (~SYM[1],~SYM[2]);
+end block;"
+    }
+  }
+]
+
