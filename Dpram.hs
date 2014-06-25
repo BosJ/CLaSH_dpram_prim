@@ -5,7 +5,7 @@ import CLaSH.Prelude
 -- Author: Jaco Bos <bos.jch@gmail.com>
 -- True Dual-Port RAM with a Single Clock
 --
--- http://christiaanb.github.io/clash2/
+-- http://hackage.haskell.org/package/clash-prelude
 -- http://www.altera.com/support/examples/vhdl/vhd-true-dual-port-ram-sclk.html
 -- http://www.altera.com/literature/hb/cyclone-iv/cyiv-51003.pdf
 --
