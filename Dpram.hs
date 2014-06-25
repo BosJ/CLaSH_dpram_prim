@@ -2,7 +2,9 @@ module Dpram where
 
 import CLaSH.Prelude
 
+-- Author: Jaco Bos <bos.jch@gmail.com>
 -- True Dual-Port RAM with a Single Clock
+-- 25 Jun 2014
 --
 -- http://www.altera.com/support/examples/vhdl/vhd-true-dual-port-ram-sclk.html
 -- http://www.altera.com/literature/hb/cyclone-iv/cyiv-51003.pdf
